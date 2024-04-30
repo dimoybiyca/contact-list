@@ -1,0 +1,16 @@
+.main {
+  &-contacts {
+    border-radius: 20px;
+    padding: 10px;
+    background-color: var(--black-hover);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding-top: 20px;
+  }
+
+  &-list {
+    align-self: flex-start;
+  }
+}

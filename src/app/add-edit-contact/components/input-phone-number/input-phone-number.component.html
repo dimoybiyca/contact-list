@@ -1,0 +1,17 @@
+<div class="form" [formGroup]="phoneForm">
+  <label for="number">Phone number</label>
+  <input
+    type="tel"
+    id="number"
+    placeholder="Phone number"
+    formControlName="number"
+  />
+
+  <label for="label">Label</label>
+  <select id="label" formControlName="label">
+    <option value="" disabled selected hidden>Label</option>
+    @for (label of labels; track $index) {
+    <option [value]="label" [label]="label"></option>
+    }
+  </select>
+</div>

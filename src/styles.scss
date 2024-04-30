@@ -1,1 +1,56 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./styles/colors.scss";
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.container {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+input {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+label {
+  display: block;
+  height: 0;
+  width: 0;
+  opacity: 0;
+}

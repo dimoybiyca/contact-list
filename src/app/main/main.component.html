@@ -1,0 +1,10 @@
+<div class="main">
+  <div class="main-contacts">
+    <app-search class="main-search"></app-search>
+
+    <div class="main-list">
+      <app-add-contact class="main-add-contact"></app-add-contact>
+      <app-contacts-list [contacts]="store.contacts()"> </app-contacts-list>
+    </div>
+  </div>
+</div>

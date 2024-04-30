@@ -1,0 +1,45 @@
+.page {
+  display: flex;
+  gap: 20px;
+}
+
+.form {
+  &-input {
+    color: var(--white);
+    padding: 10px;
+    border: 2px solid var(--white);
+    border-radius: 3px;
+    width: 300px;
+  }
+
+  &-field {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}
+
+.custom-input-wrapper {
+  display: flex;
+  gap: 5px;
+}
+
+input + label {
+  margin-top: 10px;
+}
+
+.form-field + .form-field {
+  margin-top: 20px;
+}
+
+.custom-input-wrapper + .custom-input-wrapper {
+  margin-top: 10px;
+}
+
+.btn-add {
+  align-self: flex-start;
+}
+
+.ng-invalid .ng-touched {
+  border-color: var(--red);
+}

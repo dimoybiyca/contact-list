@@ -1,0 +1,25 @@
+input {
+  color: var(--white);
+  padding: 10px;
+  border: 2px solid var(--white);
+  border-radius: 3px;
+  width: 300px;
+}
+
+select {
+  color: var(--white);
+  padding: 10px;
+  border: 2px solid var(--white);
+  border-radius: 3px;
+  background-color: transparent;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ng-invalid .ng-touched {
+  border-color: var(--red);
+}

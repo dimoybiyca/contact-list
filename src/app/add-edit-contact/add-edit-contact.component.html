@@ -1,0 +1,111 @@
+<h2 class="title">{{ isEdit ? "Edit contact" : "Create contact" }}</h2>
+<div class="page">
+  <form class="form" [formGroup]="contactForm">
+    <div class="form-field">
+      <app-icon iconName="PERSONAL"></app-icon>
+
+      <fieldset>
+        <label class="form-label" for="firstName">First Name:</label>
+        <input
+          class="form-input"
+          type="text"
+          placeholder="First Name"
+          id="firstName"
+          formControlName="firstName"
+        />
+
+        @if(middleName) {
+        <label class="form-label" for="middleName">Middle Name:</label>
+        <input
+          class="form-input"
+          type="text"
+          placeholder="Middle Name"
+          id="middleName"
+          formControlName="middleName"
+        />
+        }
+
+        <label class="form-label" for="lastName">Last Name:</label>
+        <input
+          class="form-input"
+          type="text"
+          placeholder="Last Name"
+          id="lastName"
+          formControlName="lastName"
+        />
+      </fieldset>
+
+      <button (click)="onExpandName()">
+        <app-icon
+          [iconName]="isExpandedName ? 'ARROW-UP' : 'ARROW-DOWN'"
+          size="32"
+        ></app-icon>
+      </button>
+    </div>
+
+    <div class="form-field">
+      <app-icon iconName="ORGANIZATION"></app-icon>
+
+      <fieldset>
+        <label class="form-label" for="organization">Organization</label>
+        <input
+          class="form-input"
+          type="text"
+          placeholder="Organization"
+          id="organization"
+          formControlName="organization"
+        />
+      </fieldset>
+    </div>
+
+    <div class="form-field">
+      <app-icon iconName="PHONE"></app-icon>
+
+      <fieldset formArrayName="phones">
+        <ng-container *ngFor="let phone of phones.controls; let i = index">
+          <div class="custom-input-wrapper">
+            <app-input-phone-number [formControlName]="i">
+            </app-input-phone-number>
+
+            @if(i !== 0) {
+            <button (click)="onRemovePhone(i)">
+              <app-icon iconName="CLOSE" [viewBox]="8" size="18"></app-icon>
+            </button>
+            } @else if(phones.length < 5) {
+            <button class="btn-add" (click)="onAddPhone()">
+              <app-icon iconName="ADD-SQUARE" size="32"></app-icon>
+            </button>
+            }
+          </div>
+        </ng-container>
+      </fieldset>
+    </div>
+
+    <div class="form-field">
+      <app-icon iconName="EMAIL"></app-icon>
+
+      <fieldset formArrayName="emails">
+        <ng-container *ngFor="let email of emails.controls; let i = index">
+          <div class="custom-input-wrapper">
+            <app-input-email [formControlName]="i"> </app-input-email>
+
+            @if(i !== 0) {
+            <button (click)="onRemoveEmail(i)">
+              <app-icon iconName="CLOSE" [viewBox]="8" size="18"></app-icon>
+            </button>
+            } @else if(phones.length < 5) {
+            <button class="btn-add" (click)="onAddEmail()">
+              <app-icon iconName="ADD-SQUARE" size="32"></app-icon>
+            </button>
+            }
+          </div>
+        </ng-container>
+      </fieldset>
+    </div>
+  </form>
+
+  <app-contact-details
+    [isPreview]="true"
+    [contact]="this.contactForm.value"
+  ></app-contact-details>
+</div>

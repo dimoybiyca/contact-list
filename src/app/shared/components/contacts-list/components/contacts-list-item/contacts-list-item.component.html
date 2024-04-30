@@ -1,0 +1,32 @@
+<div
+  class="contact"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
+  <div class="contact-image">{{ contact.firstName.substring(0, 1) }}</div>
+
+  <div class="contact-info">
+    <span class="contact-name">
+      {{ contact.firstName + " " + contact.lastName }}
+    </span>
+    <span class="contact-phone">{{ contact.phones[0]?.number ?? "" }}</span>
+  </div>
+
+  @if (state.isHovered()) {
+  <div class="contact-controls">
+    <button class="contact-edit">
+      <app-icon iconName="EDIT" stroke="#eef0f2" size="32"></app-icon>
+    </button>
+
+    @if(state.isConfirmDelete()) {
+    <button class="contact-confirm" (click)="onConfirmDelete()">
+      <app-icon iconName="DANGER" stroke="#a4161a" size="32"></app-icon>
+    </button>
+    } @else {
+    <button class="contact-delete" (click)="onDelete()">
+      <app-icon iconName="DELETE" stroke="#eb5e28" size="32"></app-icon>
+    </button>
+    }
+  </div>
+  }
+</div>

@@ -1,0 +1,46 @@
+.contact {
+  border-radius: 20px;
+  padding: 10px;
+  transition: all 0.5s;
+  display: flex;
+  width: 350px;
+
+  &-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+    background-color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--black);
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  &-name {
+    display: block;
+    font-size: 24px;
+    color: var(--yellow);
+    margin-bottom: 5px;
+  }
+
+  &-phone {
+    font-size: 18px;
+    color: var(--white);
+    opacity: 0.8;
+  }
+
+  &-controls {
+    display: flex;
+    gap: 8px;
+    margin-left: 20px;
+    margin-left: auto;
+  }
+
+  &:hover {
+    background-color: var(--black);
+    transform: translateY(-2px);
+  }
+}
