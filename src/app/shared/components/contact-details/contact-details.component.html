@@ -1,4 +1,32 @@
 <div class="details">
+  <div class="details-controls">
+    @if(isShowControls) {
+    <div class="details-controls">
+      <a class="details-btn" [routerLink]="'/details/' + contact.id">
+        <app-icon iconName="MAXIMIZE" stroke="#eef0f2" size="32"></app-icon>
+      </a>
+
+      <a class="details-btn" [routerLink]="'/edit/' + contact.id">
+        <app-icon iconName="EDIT" stroke="#eef0f2" size="32"></app-icon>
+      </a>
+
+      @if(state.isConfirmDelete()) {
+      <button
+        class="details-btn"
+        (click)="onConfirmDelete()"
+        (mouseleave)="onMouseLeaveDelete()"
+      >
+        <app-icon iconName="DANGER" stroke="#a4161a" size="32"></app-icon>
+      </button>
+      } @else {
+      <button class="details-btn" (click)="onDelete()">
+        <app-icon iconName="DELETE" stroke="#eb5e28" size="32"></app-icon>
+      </button>
+      }
+    </div>
+    }
+  </div>
+
   <div class="details-img">{{ contact?.firstName.substring(0, 1) || "" }}</div>
 
   <h2 class="details-name">{{ getName() }}</h2>
@@ -49,10 +77,11 @@
     </div>
     }
   </div>
-  } @if (contact.organization) {
+  } @if (contact.organization || contact.address) {
   <div class="block details-about">
     <h3 class="block-title">About Contact</h3>
 
+    @if(contact.organization) {
     <div class="block-content">
       <app-icon class="block-icon" iconName="ORGANIZATION" size="32"></app-icon>
 
@@ -64,8 +93,21 @@
         </div>
       </div>
     </div>
+    } @if(contact.address) {
+    <div class="block-content">
+      <app-icon class="block-icon" iconName="ADDRESS" size="32"></app-icon>
+
+      <div class="block-list">
+        <div class="block-elem">
+          <div class="block-values">
+            <span class="block-value">{{ contact.address }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
   </div>
-  } @if(!isPreview) {
-  <span class="details-created"></span>
+  } @if(!isPreview && contact.createdAt) {
+  <span class="details-created">Added {{ contact.createdAt | date }}</span>
   }
 </div>

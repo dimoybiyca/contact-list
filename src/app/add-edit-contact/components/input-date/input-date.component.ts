@@ -9,60 +9,54 @@ import {
   Validators,
 } from '@angular/forms';
 import { EmailLabels } from '../../data/email-labels';
-import { Patterns } from '../../../shared/data/patterns';
 import { TEmail } from '../../../shared/types/email.type';
-import { InputValidationComponent } from '../../../shared/components/input-validation/input-validation.component';
 
 @Component({
-  selector: 'app-input-email',
+  selector: 'app-input-date',
   standalone: true,
-  imports: [ReactiveFormsModule, InputValidationComponent],
-  templateUrl: './input-email.component.html',
-  styleUrl: './input-email.component.scss',
+  imports: [ReactiveFormsModule],
+  templateUrl: './input-date.component.html',
+  styleUrl: './input-date.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: InputEmailComponent,
+      useExisting: InputDateComponent,
     },
   ],
 })
-export class InputEmailComponent implements ControlValueAccessor {
+export class InputDateComponent implements ControlValueAccessor {
   fb: FormBuilder = inject(FormBuilder);
-  emailForm: FormGroup;
+  dateForm: FormGroup;
   labels = EmailLabels;
 
   private isTouched = false;
-  private readonly phonePattern = Patterns.emptyOrNumbers;
 
-  get email(): FormControl {
-    return this.emailForm.get('email') as FormControl;
+  get date(): FormControl {
+    return this.dateForm.get('date') as FormControl;
   }
 
   get label(): FormControl {
-    return this.emailForm.get('label') as FormControl;
+    return this.dateForm.get('label') as FormControl;
   }
 
   onChange = (value: TEmail) => {};
   onTouched = () => {};
 
   ngOnInit(): void {
-    this.emailForm = this.fb.group({
-      email: [
-        '',
-        [Validators.maxLength(320), Validators.pattern(Patterns.emailPattern)],
-      ],
+    this.dateForm = this.fb.group({
+      date: ['', [Validators.maxLength(32)]],
       label: [''],
     });
 
-    this.emailForm.valueChanges.subscribe(() => {
+    this.dateForm.valueChanges.subscribe(() => {
       this.onValuesChange();
     });
   }
 
   writeValue(obj: any): void {
-    if (obj.email) {
-      this.email.setValue(obj.email);
+    if (obj.date) {
+      this.date.setValue(obj.date);
     }
     if (obj.label) {
       this.label.setValue(obj.label);
@@ -78,7 +72,7 @@ export class InputEmailComponent implements ControlValueAccessor {
   }
 
   private onValuesChange(): void {
-    this.onChange(this.emailForm.value);
+    this.onChange(this.dateForm.value);
 
     if (!this.isTouched) {
       return;

@@ -1,11 +1,26 @@
-<h2 class="title">{{ isEdit ? "Edit contact" : "Create contact" }}</h2>
+<div class="top-bar">
+  <h1 class="top-bar-title">
+    {{ isEdit ? "Edit contact" : "Create contact" }}
+  </h1>
+
+  <div class="top-bar-controls">
+    <button class="btn-cancel" (click)="onCancel()">Cancel</button>
+    <button
+      class="btn-save"
+      (click)="onSubmit()"
+      [disabled]="contactForm.invalid"
+    >
+      Save
+    </button>
+  </div>
+</div>
 <div class="page">
   <form class="form" [formGroup]="contactForm">
     <div class="form-field">
       <app-icon iconName="PERSONAL"></app-icon>
 
-      <fieldset>
-        <label class="form-label" for="firstName">First Name:</label>
+      <fieldset class="form-personal">
+        <label class="form-label" for="firstName" hidden>First Name:</label>
         <input
           class="form-input"
           type="text"
@@ -13,9 +28,10 @@
           id="firstName"
           formControlName="firstName"
         />
+        <app-input-validation [control]="firstName"></app-input-validation>
 
         @if(middleName) {
-        <label class="form-label" for="middleName">Middle Name:</label>
+        <label class="form-label" for="middleName" hidden>Middle Name:</label>
         <input
           class="form-input"
           type="text"
@@ -23,9 +39,10 @@
           id="middleName"
           formControlName="middleName"
         />
+        <app-input-validation [control]="middleName"></app-input-validation>
         }
 
-        <label class="form-label" for="lastName">Last Name:</label>
+        <label class="form-label" for="lastName" hidden>Last Name:</label>
         <input
           class="form-input"
           type="text"
@@ -33,6 +50,7 @@
           id="lastName"
           formControlName="lastName"
         />
+        <app-input-validation [control]="lastName"></app-input-validation>
       </fieldset>
 
       <button (click)="onExpandName()">
@@ -47,7 +65,7 @@
       <app-icon iconName="ORGANIZATION"></app-icon>
 
       <fieldset>
-        <label class="form-label" for="organization">Organization</label>
+        <label class="form-label" for="organization" hidden>Organization</label>
         <input
           class="form-input"
           type="text"
@@ -55,6 +73,7 @@
           id="organization"
           formControlName="organization"
         />
+        <app-input-validation [control]="organization"></app-input-validation>
       </fieldset>
     </div>
 
@@ -93,8 +112,30 @@
             <button (click)="onRemoveEmail(i)">
               <app-icon iconName="CLOSE" [viewBox]="8" size="18"></app-icon>
             </button>
-            } @else if(phones.length < 5) {
+            } @else if(emails.length < 5) {
             <button class="btn-add" (click)="onAddEmail()">
+              <app-icon iconName="ADD-SQUARE" size="32"></app-icon>
+            </button>
+            }
+          </div>
+        </ng-container>
+      </fieldset>
+    </div>
+
+    <div class="form-field">
+      <app-icon iconName="DATE"></app-icon>
+
+      <fieldset formArrayName="dates">
+        <ng-container *ngFor="let date of dates.controls; let i = index">
+          <div class="custom-input-wrapper">
+            <app-input-date [formControlName]="i"> </app-input-date>
+
+            @if(i !== 0) {
+            <button (click)="onRemoveDate(i)">
+              <app-icon iconName="CLOSE" [viewBox]="8" size="18"></app-icon>
+            </button>
+            } @else if(dates.length < 5) {
+            <button class="btn-add" (click)="onAddDate()">
               <app-icon iconName="ADD-SQUARE" size="32"></app-icon>
             </button>
             }
@@ -105,6 +146,7 @@
   </form>
 
   <app-contact-details
+    class="contact-details"
     [isPreview]="true"
     [contact]="this.contactForm.value"
   ></app-contact-details>

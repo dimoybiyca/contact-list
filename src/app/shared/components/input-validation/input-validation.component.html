@@ -1,0 +1,6 @@
+@if (control.invalid && control.touched) {
+<div class="validation">
+  <app-icon iconName="DANGER" size="18" stroke="#a4161a"></app-icon>
+  <span class="validation-message">{{ getMessage() }}</span>
+</div>
+}

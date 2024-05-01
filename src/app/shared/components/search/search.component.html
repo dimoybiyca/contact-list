@@ -1,4 +1,11 @@
 <div class="search">
-  <app-icon iconName="SEARCH" fill="#141414"></app-icon>
-  <input class="search-input" type="text" />
+  <app-icon iconName="SEARCH" stroke="#eef0f2" fill="#eef0f2"></app-icon>
+  <label class="search-label" for="search" hidden>Search</label>
+  <input
+    class="search-input"
+    id="search"
+    type="text"
+    (input)="onInput($event)"
+    [value]="initialValue"
+  />
 </div>

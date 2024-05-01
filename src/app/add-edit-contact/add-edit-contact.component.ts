@@ -7,14 +7,16 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TContact } from '../shared/types/contact.type';
 import { ContactService } from '../shared/services/contact/contact.service';
-import { InputPhoneNumberComponent } from './components/input-phone-number/input-phone-number.component';
 import { NgFor } from '@angular/common';
 import { IconComponent } from '../shared/components/icon/icon.component';
-import { InputEmailComponent } from './components/input-email/input-email.component';
 import { ContactDetailsComponent } from '../shared/components/contact-details/contact-details.component';
+import { InputEmailComponent } from './components/input-email/input-email.component';
+import { InputPhoneNumberComponent } from './components/input-phone-number/input-phone-number.component';
+import { InputDateComponent } from './components/input-date/input-date.component';
+import { InputValidationComponent } from '../shared/components/input-validation/input-validation.component';
 
 @Component({
   selector: 'app-add-edit-contact',
@@ -22,10 +24,12 @@ import { ContactDetailsComponent } from '../shared/components/contact-details/co
   imports: [
     ReactiveFormsModule,
     NgFor,
-    InputPhoneNumberComponent,
     InputEmailComponent,
+    InputPhoneNumberComponent,
+    InputDateComponent,
     IconComponent,
     ContactDetailsComponent,
+    InputValidationComponent,
   ],
   templateUrl: './add-edit-contact.component.html',
   styleUrl: './add-edit-contact.component.scss',
@@ -33,6 +37,7 @@ import { ContactDetailsComponent } from '../shared/components/contact-details/co
 export class AddEditContactComponent implements OnInit {
   fb: FormBuilder = inject(FormBuilder);
   route: ActivatedRoute = inject(ActivatedRoute);
+  router: Router = inject(Router);
   contactService: ContactService = inject(ContactService);
 
   contactForm: FormGroup;
@@ -41,9 +46,6 @@ export class AddEditContactComponent implements OnInit {
   private contactId: string;
   private contact: TContact;
 
-  onTest() {
-    console.log(this.contactForm.value);
-  }
   get firstName(): FormControl {
     return this.contactForm.get('firstName') as FormControl;
   }
@@ -64,31 +66,78 @@ export class AddEditContactComponent implements OnInit {
     return this.contactForm.get('emails') as FormArray;
   }
 
+  get dates(): FormArray {
+    return this.contactForm.get('dates') as FormArray;
+  }
+
+  get organization(): FormControl {
+    return this.contactForm.get('organization') as FormControl;
+  }
+
+  get address(): FormControl {
+    return this.contactForm.get('address') as FormControl;
+  }
+
   ngOnInit(): void {
-    this.isEdit = this.route.snapshot.url.toString().endsWith('edit');
+    this.isEdit = this.route.snapshot.url.toString().includes('edit');
 
     if (this.isEdit) {
       this.contactId = this.route.snapshot.paramMap.get('id');
     }
 
     this.contact = this.contactService.getContactById(this.contactId);
+
     this.initForm();
   }
 
   initForm(): void {
+    let phonesArray: FormArray;
+    let emailsArray: FormArray;
+    let datesArray: FormArray;
+
+    if (this.contact?.phones[0]?.number) {
+      phonesArray = this.fb.array(
+        this.contact.phones.map((phone) => new FormControl(phone))
+      );
+    } else {
+      phonesArray = this.fb.array([new FormControl({ number: '', label: '' })]);
+    }
+
+    if (this.contact?.emails[0]?.email) {
+      emailsArray = this.fb.array(
+        this.contact.emails.map((email) => new FormControl(email))
+      );
+    } else {
+      emailsArray = this.fb.array([new FormControl({ email: '', label: '' })]);
+    }
+
+    if (this.contact?.dates[0]?.date) {
+      datesArray = this.fb.array(
+        this.contact.dates.map((date) => new FormControl(date))
+      );
+    } else {
+      datesArray = this.fb.array([new FormControl({ date: '', label: '' })]);
+    }
+
     this.contactForm = this.fb.group({
       firstName: [
-        this.contact?.firstName ?? 'Vasyl',
-        [Validators.required, Validators.maxLength(50)],
+        this.contact?.firstName ?? '',
+        [Validators.required, Validators.maxLength(32)],
       ],
-      lastName: [this.contact?.lastName ?? '', Validators.maxLength(50)],
+      lastName: [this.contact?.lastName ?? '', Validators.maxLength(32)],
       organization: [
         this.contact?.organization ?? '',
-        Validators.maxLength(50),
+        Validators.maxLength(32),
       ],
-      phones: this.fb.array([new FormControl('')]),
-      emails: this.fb.array([new FormControl('')]),
+      address: [this.contact?.address ?? '', Validators.maxLength(100)],
+      phones: phonesArray,
+      emails: emailsArray,
+      dates: datesArray,
     });
+
+    if (this.contact?.middleName) {
+      this.onExpandName();
+    }
   }
 
   onExpandName(): void {
@@ -97,7 +146,10 @@ export class AddEditContactComponent implements OnInit {
     if (this.isExpandedName) {
       this.contactForm.addControl(
         'middleName',
-        new FormControl('', Validators.maxLength(50))
+        new FormControl(
+          this.contact?.middleName ?? '',
+          Validators.maxLength(20)
+        )
       );
     } else {
       this.contactForm.removeControl('middleName');
@@ -118,5 +170,28 @@ export class AddEditContactComponent implements OnInit {
 
   onAddEmail(): void {
     this.emails.push(new FormControl(''));
+  }
+
+  onAddDate(): void {
+    this.dates.push(new FormControl(''));
+  }
+
+  onRemoveDate(id: number): void {
+    this.dates.removeAt(id);
+  }
+
+  onSubmit(): void {
+    this.isEdit
+      ? this.contactService.updateContact({
+          ...this.contactForm.value,
+          id: this.contact.id,
+          createdAt: this.contact.createdAt,
+        })
+      : this.contactService.addContact(this.contactForm.value);
+    this.router.navigate(['/']);
+  }
+
+  onCancel(): void {
+    this.router.navigate(['/']);
   }
 }

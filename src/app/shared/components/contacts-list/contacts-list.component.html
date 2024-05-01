@@ -1,5 +1,20 @@
 <div class="contacts">
-  @for (contact of contacts; track $index) {
-  <app-contacts-list-item [contact]="contact"></app-contacts-list-item>
+  @if(contacts.length) { @for (contact of contacts |
+  sortAlphabetically:'firstName' ; track $index) {
+  <app-contacts-list-item
+    [contact]="contact"
+    (contactClick)="onContactClick(contact)"
+  >
+  </app-contacts-list-item>
+  } } @else {
+  <div class="contacts-empty">
+    <app-icon
+      class="contacts-empty-icon"
+      iconName="BROOM"
+      size="64"
+      fill="#eef0f2"
+    ></app-icon>
+    <span class="contacts-empty-text">No contacts found</span>
+  </div>
   }
 </div>

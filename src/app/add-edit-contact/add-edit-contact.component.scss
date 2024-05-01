@@ -1,6 +1,62 @@
+button {
+  padding: 5px;
+  border-radius: 10px;
+  transition: all 0.5s;
+
+  &:hover:not([disabled]) {
+    background-color: var(--black-hover);
+  }
+}
+
+button[disabled] {
+  cursor: not-allowed;
+  color: var(--black-hover);
+  border-color: var(--black-hover);
+}
+
 .page {
   display: flex;
   gap: 20px;
+  padding-bottom: 20px;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+
+  &-title {
+    font-size: 36px;
+    color: var(--yellow);
+  }
+
+  &-controls {
+    margin-left: auto;
+  }
+}
+
+.btn-cancel {
+  color: var(--red);
+  border: 2px solid var(--red);
+  padding: 5px 10px;
+  font-size: 24px;
+  margin-right: 10px;
+
+  &:hover {
+    background-color: var(--red);
+    color: var(--white);
+  }
+}
+
+.btn-save {
+  color: var(--green);
+  border: 2px solid var(--green);
+  padding: 5px 10px;
+  font-size: 24px;
+
+  &:hover:not([disabled]) {
+    background-color: var(--green);
+    color: var(--white);
+  }
 }
 
 .form {
@@ -17,15 +73,17 @@
     align-items: flex-start;
     gap: 5px;
   }
+
+  &-personal {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
 }
 
 .custom-input-wrapper {
   display: flex;
   gap: 5px;
-}
-
-input + label {
-  margin-top: 10px;
 }
 
 .form-field + .form-field {
@@ -40,6 +98,36 @@ input + label {
   align-self: flex-start;
 }
 
-.ng-invalid .ng-touched {
+.ng-invalid.ng-touched {
   border-color: var(--red);
+}
+
+.back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mb10 {
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 800px) {
+  .contact-details {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .top-bar {
+    flex-direction: column;
+
+    &-title {
+      margin: 0 0 10px;
+    }
+
+    &-controls {
+      margin-bottom: 20px;
+    }
+  }
 }

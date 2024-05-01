@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IconComponent } from '../icon/icon.component';
 
 @Component({
@@ -8,4 +8,12 @@ import { IconComponent } from '../icon/icon.component';
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
 })
-export class SearchComponent {}
+export class SearchComponent {
+  @Input() initialValue = '';
+  @Output() valueChange = new EventEmitter<string>();
+
+  onInput(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    this.valueChange.emit(target.value);
+  }
+}

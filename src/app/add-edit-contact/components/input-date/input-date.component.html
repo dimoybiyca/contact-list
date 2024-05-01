@@ -1,12 +1,11 @@
-<div class="form" [formGroup]="phoneForm">
-  <label for="number" hidden>Phone number</label>
+<div class="form" [formGroup]="dateForm">
+  <label for="date" hidden>Signifacant Date</label>
   <input
-    type="tel"
-    id="number"
-    placeholder="Phone number"
-    formControlName="number"
+    type="date"
+    id="date"
+    placeholder="Significant Date"
+    formControlName="date"
   />
-  <app-input-validation [control]="number"></app-input-validation>
 
   <label for="label" hidden>Label</label>
   <select id="label" formControlName="label">

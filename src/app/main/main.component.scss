@@ -1,16 +1,38 @@
 .main {
   &-contacts {
-    border-radius: 20px;
-    padding: 10px;
-    background-color: var(--black-hover);
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
+    gap: 20px;
     padding-top: 20px;
+    width: 100%;
   }
 
   &-list {
+    border-radius: 20px;
+    padding: 10px;
+    background-color: var(--black-hover);
     align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 370px;
+  }
+
+  &-details {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    max-width: 600px;
+    height: calc(100vh - 130px);
+    overflow-y: scroll;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .main-details {
+    display: none;
+  }
+
+  .main-list {
+    width: 100%;
   }
 }

@@ -1,8 +1,9 @@
 <div class="form" [formGroup]="emailForm">
-  <label for="email">Email</label>
+  <label for="email" hidden>Email</label>
   <input type="email" id="email" placeholder="Email" formControlName="email" />
+  <app-input-validation [control]="email"></app-input-validation>
 
-  <label for="label">Label</label>
+  <label for="label" hidden>Label</label>
   <select id="label" formControlName="label">
     <option value="" disabled selected hidden>Label</option>
     @for (label of labels; track $index) {

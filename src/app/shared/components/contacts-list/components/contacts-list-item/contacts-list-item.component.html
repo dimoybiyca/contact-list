@@ -2,6 +2,7 @@
   class="contact"
   (mouseenter)="onMouseEnter()"
   (mouseleave)="onMouseLeave()"
+  (click)="onContactClick()"
 >
   <div class="contact-image">{{ contact.firstName.substring(0, 1) }}</div>
 
@@ -14,9 +15,9 @@
 
   @if (state.isHovered()) {
   <div class="contact-controls">
-    <button class="contact-edit">
+    <a class="contact-edit" [routerLink]="'edit/' + contact.id">
       <app-icon iconName="EDIT" stroke="#eef0f2" size="32"></app-icon>
-    </button>
+    </a>
 
     @if(state.isConfirmDelete()) {
     <button class="contact-confirm" (click)="onConfirmDelete()">
@@ -29,4 +30,17 @@
     }
   </div>
   }
+</div>
+
+<div class="contact-mobile">
+  <a class="contact-link" routerLink="/details/{{ contact.id }}">
+    <div class="contact-image">{{ contact.firstName.substring(0, 1) }}</div>
+
+    <div class="contact-info">
+      <span class="contact-name">
+        {{ contact.firstName + " " + contact.lastName }}
+      </span>
+      <span class="contact-phone">{{ contact.phones[0]?.number ?? "" }}</span>
+    </div>
+  </a>
 </div>

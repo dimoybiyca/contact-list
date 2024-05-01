@@ -8,14 +8,15 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TInputPhoneNumberValue } from '../../types/input-phone-number-value.type';
 import { PhoneLabels } from '../../data/phone-labels';
 import { Patterns } from '../../../shared/data/patterns';
+import { TPhone } from '../../../shared/types/phone.type';
+import { InputValidationComponent } from '../../../shared/components/input-validation/input-validation.component';
 
 @Component({
   selector: 'app-input-phone-number',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, InputValidationComponent],
   templateUrl: './input-phone-number.component.html',
   styleUrl: './input-phone-number.component.scss',
   providers: [
@@ -42,7 +43,7 @@ export class InputPhoneNumberComponent implements OnInit, ControlValueAccessor {
     return this.phoneForm.get('label') as FormControl;
   }
 
-  onChange = (value: TInputPhoneNumberValue) => {};
+  onChange = (value: TPhone) => {};
   onTouched = () => {};
 
   ngOnInit(): void {

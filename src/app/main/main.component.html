@@ -1,10 +1,32 @@
 <div class="main">
   <div class="main-contacts">
-    <app-search class="main-search"></app-search>
-
     <div class="main-list">
+      <app-search
+        class="main-search"
+        [initialValue]="initialValue"
+        (valueChange)="onSearchInput($event)"
+      ></app-search>
+
       <app-add-contact class="main-add-contact"></app-add-contact>
-      <app-contacts-list [contacts]="store.contacts()"> </app-contacts-list>
+
+      <app-contacts-list
+        [contacts]="
+          store.searchQuery() ? store.filteredContacts() : store.contacts()
+        "
+        (contactSelected)="store.selectContact($event)"
+      >
+      </app-contacts-list>
+    </div>
+
+    <div class="main-details">
+      @if(store.selectedContact()) {
+      <app-contact-details
+        [contact]="store.selectedContact()"
+        [isShowControls]="true"
+        [isPreview]="true"
+      >
+      </app-contact-details>
+      }
     </div>
   </div>
 </div>
