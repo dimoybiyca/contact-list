@@ -3,6 +3,7 @@
   sortAlphabetically:'firstName' ; track $index) {
   <app-contacts-list-item
     [contact]="contact"
+    [isSelected]="selectedId === contact.id"
     (contactClick)="onContactClick(contact)"
   >
   </app-contacts-list-item>

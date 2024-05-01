@@ -13,7 +13,7 @@
         [contacts]="
           store.searchQuery() ? store.filteredContacts() : store.contacts()
         "
-        (contactSelected)="store.selectContact($event)"
+        (contactSelected)="onContactSelected($event)"
       >
       </app-contacts-list>
     </div>

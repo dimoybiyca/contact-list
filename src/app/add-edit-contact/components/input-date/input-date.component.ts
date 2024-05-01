@@ -8,8 +8,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { EmailLabels } from '../../data/email-labels';
 import { TEmail } from '../../../shared/types/email.type';
+import { DateLabels } from '../../data/date-labels';
 
 @Component({
   selector: 'app-input-date',
@@ -28,7 +28,7 @@ import { TEmail } from '../../../shared/types/email.type';
 export class InputDateComponent implements ControlValueAccessor {
   fb: FormBuilder = inject(FormBuilder);
   dateForm: FormGroup;
-  labels = EmailLabels;
+  labels = DateLabels;
 
   private isTouched = false;
 

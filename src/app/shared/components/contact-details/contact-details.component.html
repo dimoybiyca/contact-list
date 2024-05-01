@@ -2,9 +2,11 @@
   <div class="details-controls">
     @if(isShowControls) {
     <div class="details-controls">
+      @if(!isDetailsPage) {
       <a class="details-btn" [routerLink]="'/details/' + contact.id">
         <app-icon iconName="MAXIMIZE" stroke="#eef0f2" size="32"></app-icon>
       </a>
+      }
 
       <a class="details-btn" [routerLink]="'/edit/' + contact.id">
         <app-icon iconName="EDIT" stroke="#eef0f2" size="32"></app-icon>
@@ -27,87 +29,23 @@
     }
   </div>
 
-  <div class="details-img">{{ contact?.firstName.substring(0, 1) || "" }}</div>
+  <div class="details-img">
+    {{ contact?.firstName.substring(0, 1).toUpperCase() || "" }}
+  </div>
 
   <h2 class="details-name">{{ getName() }}</h2>
 
   @if(contact.organization) {
   <span class="details-organization-prev">{{ contact.organization }}</span>
-  } @if(contact.phones[0]?.number || contact.emails[0]?.email) {
-  <div class="block details-info">
-    <h3 class="block-title">Contact info</h3>
+  }
 
-    @if(contact.phones[0]?.number) {
-    <div class="block-content">
-      <app-icon class="block-icon" iconName="CONTACTS" size="32"></app-icon>
+  <app-contact-info class="details-block" [contact]="contact">
+  </app-contact-info>
 
-      <div class="block-list">
-        @for (phone of contact.phones; track $index) {
-        <div class="block-elem">
-          <div class="block-values">
-            <span class="block-value">{{ phone.number }}</span>
-            <span class="block-label">{{ phone.label }}</span>
-          </div>
+  <app-contact-about class="details-block" [contact]="contact">
+  </app-contact-about>
 
-          <a class="block-link" href="{{ 'tel:' + phone.number }}">
-            <app-icon iconName="PHONE" size="32"></app-icon>
-          </a>
-        </div>
-        }
-      </div>
-    </div>
-    } @if(contact.emails[0]?.email) {
-    <div class="block-content">
-      <app-icon class="block-icon" iconName="MESSAGES" size="32"></app-icon>
-
-      <div class="block-list">
-        @for (phone of contact.emails; track $index) {
-        <div class="block-elem">
-          <div class="block-values">
-            <span class="block-value">{{ phone.email }}</span>
-            <span class="block-label">{{ phone.label }}</span>
-          </div>
-
-          <a class="block-link" href="{{ 'mailto:' + phone.email }}">
-            <app-icon iconName="EMAIL" size="32"></app-icon>
-          </a>
-        </div>
-        }
-      </div>
-    </div>
-    }
-  </div>
-  } @if (contact.organization || contact.address) {
-  <div class="block details-about">
-    <h3 class="block-title">About Contact</h3>
-
-    @if(contact.organization) {
-    <div class="block-content">
-      <app-icon class="block-icon" iconName="ORGANIZATION" size="32"></app-icon>
-
-      <div class="block-list">
-        <div class="block-elem">
-          <div class="block-values">
-            <span class="block-value">{{ contact.organization }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    } @if(contact.address) {
-    <div class="block-content">
-      <app-icon class="block-icon" iconName="ADDRESS" size="32"></app-icon>
-
-      <div class="block-list">
-        <div class="block-elem">
-          <div class="block-values">
-            <span class="block-value">{{ contact.address }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    }
-  </div>
-  } @if(!isPreview && contact.createdAt) {
+  @if(!isPreview && contact.createdAt) {
   <span class="details-created">Added {{ contact.createdAt | date }}</span>
   }
 </div>

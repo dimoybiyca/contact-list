@@ -1,1 +1,1 @@
-export const EmailLabels = ['', 'Home', 'Work', 'Other'];
+export const EmailLabels = ['', 'Home', 'Work', 'Personal', 'Other'];

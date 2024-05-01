@@ -1,11 +1,15 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   ControlValueAccessor,
   FormBuilder,
   FormControl,
   FormGroup,
+  NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
+  ValidationErrors,
+  Validator,
   Validators,
 } from '@angular/forms';
 import { EmailLabels } from '../../data/email-labels';
@@ -25,9 +29,16 @@ import { InputValidationComponent } from '../../../shared/components/input-valid
       multi: true,
       useExisting: InputEmailComponent,
     },
+    {
+      provide: NG_VALIDATORS,
+      multi: true,
+      useExisting: InputEmailComponent,
+    },
   ],
 })
-export class InputEmailComponent implements ControlValueAccessor {
+export class InputEmailComponent
+  implements OnInit, ControlValueAccessor, Validator
+{
   fb: FormBuilder = inject(FormBuilder);
   emailForm: FormGroup;
   labels = EmailLabels;
@@ -45,6 +56,10 @@ export class InputEmailComponent implements ControlValueAccessor {
 
   onChange = (value: TEmail) => {};
   onTouched = () => {};
+
+  validate(control: AbstractControl): ValidationErrors {
+    return this.emailForm.valid ? null : this.emailForm.errors;
+  }
 
   ngOnInit(): void {
     this.emailForm = this.fb.group({

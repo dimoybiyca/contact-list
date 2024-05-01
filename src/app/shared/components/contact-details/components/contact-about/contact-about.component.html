@@ -1,0 +1,46 @@
+@if (contact.organization || contact.address) {
+<div class="block details-about">
+  <h3 class="block-title">About Contact</h3>
+
+  @if(contact.organization) {
+  <div class="block-content">
+    <app-icon class="block-icon" iconName="ORGANIZATION" size="32"></app-icon>
+
+    <div class="block-list">
+      <div class="block-elem">
+        <div class="block-values">
+          <span class="block-value-sm">{{ contact.organization }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  } @if(contact.address) {
+  <div class="block-content">
+    <app-icon class="block-icon" iconName="ADDRESS" size="32"></app-icon>
+
+    <div class="block-list">
+      <div class="block-elem">
+        <div class="block-values">
+          <span class="block-value-sm">{{ contact.address }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  } @if(contact.dates[0]?.date) {
+  <div class="block-content">
+    <app-icon class="block-icon" iconName="DATE" size="32"></app-icon>
+
+    <div class="block-list">
+      @for (date of contact.dates | filterEmpty:'date'; track $index) {
+      <div class="block-elem">
+        <div class="block-values">
+          <span class="block-value-sm">{{ date.date }}</span>
+          <span class="block-label">{{ date.label }}</span>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+  }
+</div>
+}

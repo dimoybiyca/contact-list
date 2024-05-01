@@ -24,7 +24,7 @@
         <input
           class="form-input"
           type="text"
-          placeholder="First Name"
+          placeholder="*First Name"
           id="firstName"
           formControlName="firstName"
         />
@@ -72,6 +72,22 @@
           placeholder="Organization"
           id="organization"
           formControlName="organization"
+        />
+        <app-input-validation [control]="organization"></app-input-validation>
+      </fieldset>
+    </div>
+
+    <div class="form-field">
+      <app-icon iconName="ADDRESS"></app-icon>
+
+      <fieldset>
+        <label class="form-label" for="address" hidden>Address</label>
+        <input
+          class="form-input"
+          type="text"
+          placeholder="Address"
+          id="address"
+          formControlName="address"
         />
         <app-input-validation [control]="organization"></app-input-validation>
       </fieldset>

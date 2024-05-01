@@ -14,6 +14,11 @@ button[disabled] {
   border-color: var(--black-hover);
 }
 
+fieldset {
+  width: 100%;
+  max-width: 350px;
+}
+
 .page {
   display: flex;
   gap: 20px;
@@ -60,6 +65,7 @@ button[disabled] {
 }
 
 .form {
+  width: 100%;
   &-input {
     color: var(--white);
     padding: 10px;
@@ -78,6 +84,7 @@ button[disabled] {
     display: flex;
     flex-direction: column;
     gap: 3px;
+    max-width: 300px;
   }
 }
 
@@ -116,9 +123,17 @@ button[disabled] {
   .contact-details {
     display: none;
   }
+
+  .form-input {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 560px) {
+  .form {
+    font-size: 12px;
+  }
+
   .top-bar {
     flex-direction: column;
 

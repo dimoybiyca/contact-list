@@ -5,16 +5,18 @@ import { patchState, signalState } from '@ngrx/signals';
 import { TContactListItemState } from '../../types/contacts-list-item-state.type';
 import { RouterLink } from '@angular/router';
 import { ContactService } from '../../../../services/contact/contact.service';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-contacts-list-item',
   standalone: true,
-  imports: [IconComponent, RouterLink],
+  imports: [IconComponent, RouterLink, NgClass],
   templateUrl: './contacts-list-item.component.html',
   styleUrl: './contacts-list-item.component.scss',
 })
 export class ContactsListItemComponent {
   @Input() contact: TContact;
+  @Input() isSelected = false;
   @Output() contactClick = new EventEmitter<void>();
 
   contactService: ContactService = inject(ContactService);

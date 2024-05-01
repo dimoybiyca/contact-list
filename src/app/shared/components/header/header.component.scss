@@ -4,5 +4,25 @@
   box-shadow: -9px -2px 22px 0px rgba(255, 255, 255, 0.75);
   -webkit-box-shadow: -9px -2px 22px 0px rgba(255, 255, 255, 0.75);
   -moz-box-shadow: -9px -2px 22px 0px rgba(255, 255, 255, 0.75);
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-img {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+  }
+
+  &-text {
+    font-size: 24px;
+    font-weight: bold;
+  }
 }

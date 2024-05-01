@@ -1,11 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   ControlValueAccessor,
   FormBuilder,
   FormControl,
   FormGroup,
+  NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
+  ValidationErrors,
+  Validator,
   Validators,
 } from '@angular/forms';
 import { PhoneLabels } from '../../data/phone-labels';
@@ -25,9 +29,16 @@ import { InputValidationComponent } from '../../../shared/components/input-valid
       multi: true,
       useExisting: InputPhoneNumberComponent,
     },
+    {
+      provide: NG_VALIDATORS,
+      multi: true,
+      useExisting: InputPhoneNumberComponent,
+    },
   ],
 })
-export class InputPhoneNumberComponent implements OnInit, ControlValueAccessor {
+export class InputPhoneNumberComponent
+  implements OnInit, ControlValueAccessor, Validator
+{
   fb: FormBuilder = inject(FormBuilder);
   phoneForm: FormGroup;
   labels = PhoneLabels;
@@ -45,6 +56,10 @@ export class InputPhoneNumberComponent implements OnInit, ControlValueAccessor {
 
   onChange = (value: TPhone) => {};
   onTouched = () => {};
+
+  validate(control: AbstractControl): ValidationErrors {
+    return this.phoneForm.valid ? null : this.phoneForm.errors;
+  }
 
   ngOnInit(): void {
     this.phoneForm = this.fb.group({
