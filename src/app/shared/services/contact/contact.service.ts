@@ -44,9 +44,9 @@ export class ContactService {
 
   public addContact(contact: TContact): void {
     const id: string = uuidv4().toString();
-    console.log(id);
+    const createdAt = new Date();
 
-    this.contacts.push({ ...contact, id });
+    this.contacts.push({ ...contact, id, createdAt });
     this.persistenceService.set('contacts', this.contacts);
     this.contactsSubject.next(this.contacts);
   }

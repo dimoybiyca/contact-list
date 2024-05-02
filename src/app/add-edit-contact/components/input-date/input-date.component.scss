@@ -8,6 +8,7 @@ input {
   border: 2px solid var(--white);
   border-radius: 3px;
   width: 100%;
+  max-width: 300px;
 }
 
 select {
@@ -16,6 +17,7 @@ select {
   border: 2px solid var(--white);
   border-radius: 3px;
   background-color: transparent;
+  max-width: 300px;
 }
 
 .form {

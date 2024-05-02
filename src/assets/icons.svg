@@ -43,7 +43,7 @@
     </g>
 
     <g id="ICON_CLOSE">
-        <path d="M6.49998 1.50002L1.5 6.5M1.49998 1.5L6.49996 6.49998" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M6.49998 1.50002L1.5 6.5M1.49998 1.5L6.49996 6.49998" stroke-width="1" stroke-linecap="round"/>
     </g>
 
     <g id="ICON_SEARCH">

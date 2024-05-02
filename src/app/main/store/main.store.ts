@@ -10,7 +10,6 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { initialMainState } from './main.state';
 import { computed, inject } from '@angular/core';
 import { ContactService } from '../../shared/services/contact/contact.service';
-import { TContact } from '../../shared/types/contact.type';
 import { pipe, switchMap, tap } from 'rxjs';
 
 export const MainStore = signalStore(
@@ -28,14 +27,19 @@ export const MainStore = signalStore(
         })
       )
     ),
-    selectContact(contact: TContact): void {
-      patchState(store, { selectedContact: contact });
+    setSelectedContactId(selectedContactId: string): void {
+      patchState(store, { selectedContactId });
     },
     setSearchQuery(searchQuery: string): void {
       patchState(store, { searchQuery });
     },
   })),
   withComputed((store) => ({
+    selectedContact: computed(() => {
+      return store
+        .contacts()
+        .find((contact) => contact.id === store.selectedContactId());
+    }),
     filteredContacts: computed(() =>
       store.contacts().filter((contact) => {
         const searchQuery = store.searchQuery().toLowerCase();

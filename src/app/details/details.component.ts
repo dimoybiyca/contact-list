@@ -24,4 +24,8 @@ export class DetailsComponent implements OnInit {
     this.contactId = this.route.snapshot.paramMap.get('id');
     this.contact = this.contactService.getContactById(this.contactId);
   }
+
+  onBack(): void {
+    window.history.back();
+  }
 }

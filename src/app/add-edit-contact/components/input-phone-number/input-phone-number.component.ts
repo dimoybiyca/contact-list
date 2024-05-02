@@ -58,7 +58,7 @@ export class InputPhoneNumberComponent
   onTouched = () => {};
 
   validate(control: AbstractControl): ValidationErrors {
-    return this.phoneForm.valid ? null : this.phoneForm.errors;
+    return this.phoneForm.valid ? null : this.number.errors;
   }
 
   ngOnInit(): void {

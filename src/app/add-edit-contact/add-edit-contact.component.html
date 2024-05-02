@@ -103,8 +103,8 @@
             </app-input-phone-number>
 
             @if(i !== 0) {
-            <button (click)="onRemovePhone(i)">
-              <app-icon iconName="CLOSE" [viewBox]="8" size="18"></app-icon>
+            <button class="btn-close" (click)="onRemovePhone(i)">
+              <app-icon iconName="CLOSE" size="24" [viewBox]="8"></app-icon>
             </button>
             } @else if(phones.length < 5) {
             <button class="btn-add" (click)="onAddPhone()">
@@ -125,8 +125,8 @@
             <app-input-email [formControlName]="i"> </app-input-email>
 
             @if(i !== 0) {
-            <button (click)="onRemoveEmail(i)">
-              <app-icon iconName="CLOSE" [viewBox]="8" size="18"></app-icon>
+            <button class="btn-close" (click)="onRemoveEmail(i)">
+              <app-icon iconName="CLOSE" size="24" [viewBox]="8"></app-icon>
             </button>
             } @else if(emails.length < 5) {
             <button class="btn-add" (click)="onAddEmail()">
@@ -147,8 +147,8 @@
             <app-input-date [formControlName]="i"> </app-input-date>
 
             @if(i !== 0) {
-            <button (click)="onRemoveDate(i)">
-              <app-icon iconName="CLOSE" [viewBox]="8" size="18"></app-icon>
+            <button class="btn-close" (click)="onRemoveDate(i)">
+              <app-icon iconName="CLOSE" [viewBox]="8" size="24"></app-icon>
             </button>
             } @else if(dates.length < 5) {
             <button class="btn-add" (click)="onAddDate()">

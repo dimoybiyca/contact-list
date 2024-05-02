@@ -39,7 +39,7 @@ fieldset {
   }
 }
 
-.btn-cancel {
+button.btn-cancel {
   color: var(--red);
   border: 2px solid var(--red);
   padding: 5px 10px;
@@ -62,6 +62,10 @@ fieldset {
     background-color: var(--green);
     color: var(--white);
   }
+}
+
+.btn-close {
+  align-self: center;
 }
 
 .form {

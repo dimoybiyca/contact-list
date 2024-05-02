@@ -44,7 +44,6 @@ export class InputEmailComponent
   labels = EmailLabels;
 
   private isTouched = false;
-  private readonly phonePattern = Patterns.emptyOrNumbers;
 
   get email(): FormControl {
     return this.emailForm.get('email') as FormControl;
@@ -58,7 +57,7 @@ export class InputEmailComponent
   onTouched = () => {};
 
   validate(control: AbstractControl): ValidationErrors {
-    return this.emailForm.valid ? null : this.emailForm.errors;
+    return this.emailForm.valid ? null : this.email.errors;
   }
 
   ngOnInit(): void {

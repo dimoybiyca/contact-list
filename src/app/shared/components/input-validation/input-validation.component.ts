@@ -13,8 +13,6 @@ export class InputValidationComponent {
   @Input() control: FormControl;
 
   getMessage(): string {
-    console.log(this.control);
-
     if (this.control.hasError('required')) {
       return 'This field is required';
     }

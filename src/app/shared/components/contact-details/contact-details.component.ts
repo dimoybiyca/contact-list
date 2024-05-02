@@ -3,10 +3,11 @@ import { TContact } from '../../types/contact.type';
 import { IconComponent } from '../icon/icon.component';
 import { TContactDetailsState } from '../../types/contact-details-state.type';
 import { patchState, signalState } from '@ngrx/signals';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { ContactInfoComponent } from './components/contact-info/contact-info.component';
 import { ContactAboutComponent } from './components/contact-about/contact-about.component';
+import { ContactService } from '../../services/contact/contact.service';
 
 @Component({
   selector: 'app-contact-details',
@@ -28,6 +29,7 @@ export class ContactDetailsComponent implements OnInit {
 
   isDetailsPage: boolean;
   private route: ActivatedRoute = inject(ActivatedRoute);
+  private contactService: ContactService = inject(ContactService);
 
   state = signalState<TContactDetailsState>({
     isConfirmDelete: false,
@@ -47,7 +49,9 @@ export class ContactDetailsComponent implements OnInit {
     patchState(this.state, (state) => ({ ...state, isConfirmDelete: true }));
   }
 
-  onConfirmDelete(): void {}
+  onConfirmDelete(): void {
+    this.contactService.deleteContact(this.contact.id);
+  }
 
   onMouseLeaveDelete(): void {
     patchState(this.state, (state) => ({ ...state, isConfirmDelete: false }));

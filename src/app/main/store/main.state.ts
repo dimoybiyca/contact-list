@@ -2,14 +2,14 @@ import { TContact } from '../../shared/types/contact.type';
 
 export type TMainState = {
   contacts: TContact[];
-  selectedContact: TContact;
+  selectedContactId: string | null;
   searchQuery: string;
   isLoading: boolean;
 };
 
 export const initialMainState: TMainState = {
   contacts: [],
-  selectedContact: null,
+  selectedContactId: null,
   searchQuery: '',
   isLoading: false,
 };

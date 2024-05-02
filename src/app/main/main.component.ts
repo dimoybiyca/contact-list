@@ -7,7 +7,6 @@ import { ContactDetailsComponent } from '../shared/components/contact-details/co
 import { ActivatedRoute, Router } from '@angular/router';
 import { TContact } from '../shared/types/contact.type';
 import { PersistenceService } from '../shared/services/persistence/persistence.service';
-import { ContactService } from '../shared/services/contact/contact.service';
 
 @Component({
   selector: 'app-main',
@@ -27,7 +26,6 @@ export class MainComponent implements OnInit {
   initialValue: string;
 
   private persistenceService: PersistenceService = inject(PersistenceService);
-  private contactService: ContactService = inject(ContactService);
   private route: ActivatedRoute = inject(ActivatedRoute);
   private router: Router = inject(Router);
 
@@ -39,9 +37,7 @@ export class MainComponent implements OnInit {
 
     const selectedContact = this.persistenceService.get('selectedContact');
     if (selectedContact) {
-      this.store.selectContact(
-        this.contactService.getContactById(selectedContact.id)
-      );
+      this.store.setSelectedContactId(selectedContact.id);
     }
   }
 
@@ -51,7 +47,7 @@ export class MainComponent implements OnInit {
   }
 
   onContactSelected($event: TContact): void {
-    this.store.selectContact($event);
+    this.store.setSelectedContactId($event.id);
     this.persistenceService.set('selectedContact', $event);
   }
 }
